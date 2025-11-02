@@ -108,9 +108,10 @@ function App() {
       data.map(async (row) => {
         try {
           if (row["NSE/BSE"]) {
-            const res = await fetch(`${endpoint}${row["NSE/BSE"]}`);
+            const symbol =row["NSE/BSE"];
+            const res = await fetch(`${endpoint}/${symbol}`);
             const wrapper = await res.json();
-            const livePrice = parseFloat(wrapper["priceInfo"]["lastPrice"]);
+            const livePrice = parseFloat(wrapper["livePrice"]);
             const qty = row.Qty || 0;
             const presentValue = livePrice * qty;
             const inv = row.Investment || 0;
